@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ألعاب تربوية – مؤسسة مولاي إسماعيل</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Tahoma', Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 10px;
+            background: #fff;
+            color: #3498db;
+            padding: 8px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+        .back-btn:hover {
+            background: #ecf0f1;
+        }
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .game-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .game-card h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .game-card p {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .play-btn {
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .play-btn:hover {
+            background: #219653;
+        }
+        /* نافذة اللعبة المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow: auto;
+            position: relative;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 28px;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close:hover {
+            color: #000;
+        }
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 8px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #555;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ألعاب تربوية</h1>
+    <p>اختار اللعبة اللي بغيتي وتعلم واستمتع!</p>
+    <a class="back-btn" href="index.html">← العودة للصفحة الرئيسية</a>
+</header>
+
+<main>
+    <!-- بطاقات الألعاب -->
+    <div class="game-card">
+        <h2>لعبة الحروف</h2>
+        <p>تعلم الحروف العربية وأصواتها بطريقة ممتعة ومسلية.</p>
+        <button class="play-btn" onclick="openGame('letters')">ابدأ اللعب</button>
+    </div>
+
+    <div class="game-card">
+        <h2>العمليات الحسابية</h2>
+        <p>مارس الجمع، الطرح، الضرب والقسمة بشكل تفاعلي وسريع.</p>
+        <button class="play-btn" onclick="openGame('math')">ابدأ اللعب</button>
+    </div>
+
+    <div class="game-card">
+        <h2>كلمات متقاطعة</h2>
+        <p>طوّر مفرداتك اللغوية بحل الألغاز المتقاطعة الشيّقة.</p>
+        <button class="play-btn" onclick="openGame('crossword')">ابدأ اللعب</button>
+    </div>
+
+    <div class="game-card">
+        <h2>الألوان والأشكال</h2>
+        <p>تعرّف على الألوان والأشكال الهندسية بطريقة مرحة وسهلة.</p>
+        <button class="play-btn" onclick="openGame('colors')">ابدأ اللعب</button>
+    </div>
+
+    <div class="game-card">
+        <h2>لعبة الترتيب</h2>
+        <p>رتّب الأرقام أو الكلمات من الأصغر إلى الأكبر.</p>
+        <button class="play-btn" onclick="openGame('sort')">ابدأ اللعب</button>
+    </div>
+
+    <div class="game-card">
+        <h2>مطابقة الصور</h2>
+        <p>اكتب اسم الصورة التي تظهر أمامك بأسرع وقت.</p>
+        <button class="play-btn" onclick="openGame('match')">ابدأ اللعب</button>
+    </div>
+</main>
+
+<!-- نافذة منبثقة لعرض اللعبة -->
+<div id="gameModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeGame()">&times;</span>
+        <div id="gameContainer"></div>
+    </div>
+</div>
+
+<footer>
+    مؤسسة مولاي إسماعيل الابتدائية &copy; 2024
+</footer>
+
+<script>
+    // دوال فتح وإغلاق النافذة المنبثقة
+    const modal = document.getElementById('gameModal');
+    const gameContainer = document.getElementById('gameContainer');
+
+    function openGame(type) {
+        // نفرغ المحتوى السابق
+        gameContainer.innerHTML = '';
+
+        // نحدد محتوى كل لعبة (يمكن استبدالها بروابط أو أكواد ألعاب حقيقية)
+        let content = '';
+        switch(type) {
+            case 'letters':
+                content = '<h2>لعبة الحروف</h2><iframe src="letters-game.html"></iframe>';
+                break;
+            case 'math':
+                content = '<h2>العمليات الحسابية</h2><iframe src="math-game.html"></iframe>';
+                break;
+            case 'crossword':
+                content = '<h2>كلمات متقاطعة</h2><iframe src="crossword-game.html"></iframe>';
+                break;
+            case 'colors':
+                content = '<h2>الألوان والأشكال</h2><iframe src="colors-game.html"></iframe>';
+                break;
+            case 'sort':
+                content = '<h2>لعبة الترتيب</h2><iframe src="sort-game.html"></iframe>';
+                break;
+            case 'match':
+                content = '<h2>مطابقة الصور</h2><iframe src="match-game.html"></iframe>';
+                break;
+            default:
+                content = '<p>اللعبة قيد التطوير...</p>';
+        }
+
+        gameContainer.innerHTML = content;
+        modal.style.display = 'flex';
+    }
+
+    function closeGame() {
+        modal.style.display = 'none';
+        gameContainer.innerHTML = '';
+    }
+
+    // إغلاق النافذة عند الضغط خارج الإطار
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeGame();
+        }
+    }
+</script>
+
+</body>
+</html>
